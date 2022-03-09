@@ -21,9 +21,10 @@ var saveEvent = function(event) {
         console.log("you clicked on the save btn", event.target);
     // First, get the reference to DOM node that we want the value from. Second, get its value by adding .value. Third, we want to use setitem to localStorage.
     event.target.parentNode.querySelector(".event-block").value;
-    var toBeSaved = event.target.parentNode.querySelector(".event-block").value
-    var timeBlock = event.target.parentNode.querySelector(".time").value
-    localStorage.setItem("9:00AM", toBeSaved);
+    var toBeSaved = event.target.parentNode.querySelector(".event-block").value;
+    var timeBlock = event.target.parentNode.querySelector(".time");
+    localStorage.setItem("Event", toBeSaved);
+    
     // setItem to "time stamp: eventText/value" then get item, parse item, which is a json object, turn into string, display string
     
     }
