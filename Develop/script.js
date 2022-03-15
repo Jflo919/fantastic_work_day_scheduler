@@ -18,26 +18,58 @@ var toSave = [];
 
 var saveEvent = function(event) {
     if (event.target.classList.contains("saveBtn")) {
-        console.log("you clicked on the save btn", event.target);
-    // First, get the reference to DOM node that we want the value from. Second, get its value by adding .value. Third, we want to use setitem to localStorage.
-    event.target.parentNode.querySelector(".event-block").value;
-    var toBeSaved = event.target.parentNode.querySelector(".event-block").value;
-    var timeBlock = event.target.parentNode.querySelector(".time").value;
-    localStorage.setItem("Event", JSON.stringify(toBeSaved));
+      var toBeSaved = event.target.parentNode.querySelector(".event-block").value;
+      var timeBlock = event.target.parentNode.querySelector(".time").innerText.trim();
 
-    // setItem to "time stamp: eventText/value" then get item, parse item, which is a json object, turn into string, display string
-    var tested = JSON.parse(localStorage.getItem("Event"));
-    alert(tested);
+			// REMOVE LINE BELOW BEFORE SUBMITTING
+      localStorage.removeItem('Event');
+      var parsedEvents = JSON.parse(localStorage.getItem("Event"));
+      if (parsedEvents == null) {
+        parsedEvents = {};
+      }    
+      parsedEvents[timeBlock] = toBeSaved;
+      localStorage.setItem("Event", JSON.stringify(parsedEvents));
     }
 }
 
 var test = document.querySelector(".container").addEventListener("click", saveEvent);
 
     
-
-   
-
 // create a function to load saved event(s) on page load
+// Acquire whatever html element you want with jquery or javascript and save them as global variables here
+// acquired the p element from #currentDay
 
- //  code to color code past hour/events, current hour/events, and future hours/events, addclasslist change color 
+
+    
+// create a function to load saved event(s) on page load
+var pageLoad = function () {
+  var parsedEventValue = JSON.parse(localStorage.getItem("Event"));
+  if (parsedEventValue == null) {
+    parsedEventValue = {};
+  }
+
+	var EventValueAsArr = Object.entries(parsedEventValue);
+	// {" 9:00AM" : "ARASH", "10:00AM" : "JULIAN"}
+  // [["9:00AM", "ARASH"], ["10:00AM" , "JULIAN"]]
+  EventValueAsArr.forEach(function(timeAndText) {
+  	alert(timeAndText);
+    // timeAndText[0] is "TIME" // "9:00AM", "10:00AM" 
+    // timeAndText[1] is "TEXT" // "ARASH", "JULIAN"
+  });
+  var NineAMValue = parsedEventValue["9:00 AM"];
+  document.getElementById("9:00 AM").value = NineAMValue;
+  
+  var tenAMValue = parsedEventValue["10:00 AM"];
+  document.getElementById("10:00 AM").value = tenAMValue;
+
+  var elevenAMValue = parsedEventValue["11:00 AM"];
+  document.getElementById("11:00 AM").value = elevenAMValue;
+
+  var twelvePMValue = parsedEventValue["12:00 PM"];
+  document.getElementById("12:00 PM").value = twelvePMValue;
+};
+pageLoad();
+//  code to color code past hour/events, current hour/events, and future hours/events, addclasslist change color 
+ 
+//  code to color code past hour/events, current hour/events, and future hours/events, addclasslist change color 
  
